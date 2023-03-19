@@ -1,0 +1,11 @@
+<div class="d-flex flex-wrap justify-content-around">
+  <!-- Динамическое добавление элементов -->
+  <div class="ticket-item col-3 m-2"
+       *ngFor="let item of tickets; let i = index">
+    <!-- выводится с помощью интерполяции -->
+    <div class="ticket-title">{{item.name}}</div>
+    <div class="ticket-img">
+      <img class="w-100" src="/assets/img/{{item.img}}">
+    </div>
+  </div>
+</div>
