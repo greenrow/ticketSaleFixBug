@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {IUser} from "../models/users";
+import {IUser} from "../../models/users";
 import {find} from "rxjs";
 
 @Injectable({
