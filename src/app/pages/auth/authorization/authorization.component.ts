@@ -3,6 +3,7 @@ import {AuthService} from "../../../services/auth/auth.service";
 import {IUser} from "../../../models/users";
 import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
+import {UserService} from "../../../services/user/user.service";
 
 
 @Component({
@@ -25,7 +26,10 @@ export class AuthorizationComponent implements OnInit, OnChanges, OnDestroy {
   cardNumber: string;
   authTextButton: string;
 
-  constructor(private authService: AuthService, private messageService: MessageService, private router: Router) { }
+  constructor(private authService: AuthService,
+              private messageService: MessageService,
+              private router: Router,
+              private userService: UserService ) { }
 
   ngOnInit(): void {
     this.authTextButton = "Авторизоваться"
@@ -55,13 +59,17 @@ export class AuthorizationComponent implements OnInit, OnChanges, OnDestroy {
 
   }
   //Проверка по авторизации (логин и пароль), если будет все ок, то переходим на страницу с турами
-  onAuth(ev: Event):void{
+  onAuth(ev: Event): void{
     const authUser: IUser ={
       psw: this.psw,
-      login: this.login
+      login: this.login,
+      cardNumber: this.cardNumber
     }
     if (!this.authService.checkUser(authUser)) {
-      this.router.navigate(['tickets/tickets-list'])
+      this.router.navigate(['tickets/tickets-list']);
+      // запись пользователя
+      this.userService.setUser(authUser);
+
       }
     else {
       this.messageService.add({severity:'warn', summary: 'Неудача', detail: 'Неправильно введен логин или пароль'});
