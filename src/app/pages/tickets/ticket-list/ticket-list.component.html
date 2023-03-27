@@ -2,6 +2,7 @@
   <!-- Динамическое добавление элементов -->
   <div class="ticket-item col-3 m-2"
        *ngFor="let item of tickets; let i = index">
+    <!--<div><input (input)="findTours($event)" type="text" pInputText /></div> -->
     <!-- выводится с помощью интерполяции -->
     <div class="ticket-title">{{item.name}}</div>
     <div class="ticket-img">
