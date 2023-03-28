@@ -1,4 +1,10 @@
-<div class="d-flex flex-wrap justify-content-around">
+<!-- Директива -->
+<div appBlockStyle
+     *ngIf="tickets"
+     [selector]="'.ticket-item'"
+     [initFirst] = "true"
+
+  class="d-flex flex-wrap justify-content-around">
   <!-- Динамическое добавление элементов -->
   <div class="ticket-item col-3 m-2"
        *ngFor="let item of tickets; let i = index">
