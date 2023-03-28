@@ -10,6 +10,7 @@ import { AsideComponent } from './aside/aside.component';
 import {MenubarModule} from 'primeng/menubar';
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
+import {BlockStyleDirective} from "../../directive/block-style.directive";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {FormsModule} from "@angular/forms";
     HeaderComponent,
     FooterComponent,
     TicketListComponent,
-    AsideComponent
+    AsideComponent,
+    BlockStyleDirective
   ],
   imports: [
     FormsModule,
