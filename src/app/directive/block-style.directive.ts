@@ -13,7 +13,8 @@ import {
   selector: '[appBlockStyle]',
   host: {
     '(document:keyup)': 'initKeyUp($event)' //создает новый слушатель событий
-  }
+  },
+  exportAs: 'blocksStyle'
 })
 export class BlockStyleDirective implements OnInit, AfterViewInit, OnChanges{
 
@@ -24,11 +25,13 @@ export class BlockStyleDirective implements OnInit, AfterViewInit, OnChanges{
 
   private items: HTMLElement [];
   private index: number = 0;
+  public activeElementIndex: number;
 // ссылается на тот элемент, где применяется, та или иная директива (позволяет ссылаться эл-ту)
   constructor( private  el: ElementRef) { }
   ngOnInit(): void {
   }
   ngAfterViewInit() {
+    this.activeElementIndex = 0
     if (this.selector){
       this.items = this.el.nativeElement.querySelectorAll(this.selector); //позволяет ссылаться на дом-элемент (выборку)
       if (this.initFirst){
@@ -63,6 +66,7 @@ export class BlockStyleDirective implements OnInit, AfterViewInit, OnChanges{
         (this.items[this.index] as HTMLElement).setAttribute('style', 'border: 2px solid pink')
       }
     }
+    this.activeElementIndex = this.index //присваивается индекс
   }
 
 }
