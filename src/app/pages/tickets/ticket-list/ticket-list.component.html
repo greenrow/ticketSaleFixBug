@@ -2,6 +2,10 @@
   <div>
     <p>Количество элементов: {{tourWrap.childElementCount}}</p> <!-- или {{tickets.length}} -->
     <p>Активный элемент: {{blockDirective.activeElementIndex}}</p>
+    <!-- Поиск туров -->
+    <div>
+      <input (input)="findTours($event)" type="text" pInputText />
+    </div>
   </div>
 <!-- Директива -->
 <div appBlockStyle
@@ -9,6 +13,7 @@
      #blockDirective ='blocksStyle'
      [selector]="'.ticket-item'"
      [initFirst] = "true"
+     (renderComplete)="directiveRenderComplete($event)"
 
   class="d-flex flex-wrap justify-content-around">
 
