@@ -6,7 +6,7 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 
 @Directive({
@@ -36,13 +36,17 @@ export class BlockStyleDirective implements OnInit, AfterViewInit, OnChanges{
       this.items = this.el.nativeElement.querySelectorAll(this.selector); //позволяет ссылаться на дом-элемент (выборку)
       if (this.initFirst){
         if (this.items[0]){
-          (this.items[0] as HTMLElement).setAttribute('style', 'border: 2px solid pink') //true значение, то будет подсвечиваться 1 эл-т
+          (this.items[0] as HTMLElement).setAttribute('style', 'border: 2px solid darkred') //true значение, то будет подсвечиваться 1 эл-т
         }
       }
     }
     else {
       console.log('Не передан селектор')
     }
+    //после того, как наши события закончатся, происходит отрисовка элементов
+    setTimeout(() => {
+      this.renderComplete.emit(true);
+    })
   }
   ngOnChanges(changes: SimpleChanges) {
   }
@@ -57,16 +61,23 @@ export class BlockStyleDirective implements OnInit, AfterViewInit, OnChanges{
     if (ev.key === 'ArrowRight'){
       this.index++;
       if (this.items[this.index]){
-        (this.items[this.index] as HTMLElement).setAttribute('style', 'border: 2px solid pink')
+        (this.items[this.index] as HTMLElement).setAttribute('style', 'border: 2px solid darkred')
       }
     } else if (ev.key === 'ArrowLeft'){
       this.index--;
       if (this.items[this.index]) //проверка элемента
          {
-        (this.items[this.index] as HTMLElement).setAttribute('style', 'border: 2px solid pink')
+        (this.items[this.index] as HTMLElement).setAttribute('style', 'border: 2px solid darkred')
       }
     }
     this.activeElementIndex = this.index //присваивается индекс
+  }
+
+  //проставляет стиль для нашего элемента
+  initStyle(index: number){
+    if (this.items[index]){
+      (this.items[index] as HTMLElement).setAttribute('style', 'border: 2px solid darkred')
+    }
   }
 
 }
