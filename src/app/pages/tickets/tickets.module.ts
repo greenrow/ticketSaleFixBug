@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {Input, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TicketsRoutingModule } from './tickets-routing.module';
@@ -20,14 +20,14 @@ import {BlockStyleDirective} from "../../directive/block-style.directive";
     FooterComponent,
     TicketListComponent,
     AsideComponent,
-    BlockStyleDirective
+    BlockStyleDirective,
   ],
   imports: [
     FormsModule,
     CommonModule,
     TicketsRoutingModule,
     MenubarModule,
-    DropdownModule
+    DropdownModule,
   ]
 })
 export class TicketsModule { }
