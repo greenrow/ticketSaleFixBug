@@ -65,14 +65,14 @@ export class AuthorizationComponent implements OnInit, OnChanges, OnDestroy {
       login: this.login,
       cardNumber: this.cardNumber
     }
-    if (!this.authService.checkUser(authUser)) {
+    if (this.authService.checkUser(authUser)) {
       this.router.navigate(['tickets/tickets-list']);
       // запись пользователя
       this.userService.setUser(authUser);
 
       }
     else {
-      this.messageService.add({severity:'warn', summary: 'Неудача', detail: 'Неправильно введен логин или пароль'});
+      this.messageService.add({severity:'error', summary: 'Неудача', detail: 'Неправильно введен логин или пароль'});
     }
 
   }
