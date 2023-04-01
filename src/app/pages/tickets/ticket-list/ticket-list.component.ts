@@ -14,6 +14,7 @@ import {BlockStyleDirective} from "../../../directive/block-style.directive";
 export class TicketListComponent implements OnInit {
   tickets: ITour[];
   ticketsCopy: ITour[];
+  renderComplete = false; //
 
   @ViewChild('tourWrap', {read: BlockStyleDirective}) blockDirective: BlockStyleDirective;
   @ViewChild('tourWrap') tourWrap: ElementRef;
@@ -46,10 +47,11 @@ export class TicketListComponent implements OnInit {
     const el: HTMLElement = this.tourWrap.nativeElement;
     el.setAttribute('style', 'background-color: #f5f5dc')
     this.blockDirective.initStyle(0)
+    this.renderComplete = true
   }
 // поиск туров
   findTours(ev: Event):void{
-    const searchValue = (<HTMLElement>ev.target).nodeValue;
+    const searchValue = (<HTMLInputElement>ev.target).value;
 
     if(searchValue){
       this.tickets = this.ticketsCopy.filter((el) => el.name.includes(searchValue));

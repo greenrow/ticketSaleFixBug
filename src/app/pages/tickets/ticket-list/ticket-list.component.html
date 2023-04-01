@@ -1,10 +1,12 @@
 <div *ngIf="tickets">
+  <div *ngIf="renderComplete">
   <div>
     <p>Количество элементов: {{tourWrap.childElementCount}}</p> <!-- или {{tickets.length}} -->
     <p>Активный элемент: {{blockDirective.activeElementIndex}}</p>
     <!-- Поиск туров -->
     <div>
-      <input (input)="findTours($event)" type="text" pInputText />
+      Найти тур: <input (input)="findTours($event)" type="text" pInputText />
+    </div>
     </div>
   </div>
 <!-- Директива -->
