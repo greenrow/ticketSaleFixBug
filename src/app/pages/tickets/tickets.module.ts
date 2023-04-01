@@ -11,6 +11,7 @@ import {MenubarModule} from 'primeng/menubar';
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {BlockStyleDirective} from "../../directive/block-style.directive";
+import {InputTextModule} from "primeng/inputtext";
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {BlockStyleDirective} from "../../directive/block-style.directive";
     TicketsRoutingModule,
     MenubarModule,
     DropdownModule,
+    InputTextModule
   ]
 })
 export class TicketsModule { }
