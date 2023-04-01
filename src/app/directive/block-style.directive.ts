@@ -25,7 +25,7 @@ export class BlockStyleDirective implements OnInit, AfterViewInit, OnChanges{
 
   private items: HTMLElement [];
   private index: number = 0;
-  public activeElementIndex: number;
+  public activeElementIndex: number = 0;
 // ссылается на тот элемент, где применяется, та или иная директива (позволяет ссылаться эл-ту)
   constructor( private  el: ElementRef) { }
   ngOnInit(): void {
@@ -51,9 +51,12 @@ export class BlockStyleDirective implements OnInit, AfterViewInit, OnChanges{
   ngOnChanges(changes: SimpleChanges) {
   }
 
-  initKeyUp (ev: KeyboardEvent): void{
+  initKeyUp (ev: KeyboardEvent): void | boolean {
     // как только событие происходит, удаляет границу элемента
     if(ev.key === 'ArrowRight'|| ev.key === 'ArrowLeft'){
+      if (ev.key === "ArrowLeft" && this.index === 0){
+        return false
+      }
       (this.items[this.index] as HTMLElement).removeAttribute('style');
     }
 
@@ -70,7 +73,10 @@ export class BlockStyleDirective implements OnInit, AfterViewInit, OnChanges{
         (this.items[this.index] as HTMLElement).setAttribute('style', 'border: 2px solid darkred')
       }
     }
-    this.activeElementIndex = this.index //присваивается индекс
+    if (this.index >= 0){
+      this.activeElementIndex = this.index //присваивается индекс
+    }
+
   }
 
   //проставляет стиль для нашего элемента
