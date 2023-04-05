@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ObservableExampleService {
 // инжиктировали в app
+export class ObservableExampleService {
+private myBehaviorSubject = new BehaviorSubject<string>('some data of Behavior subject');
+private mySubject = new Subject<string>();
+// отправка каждому подписчику и вызывается элемент каждого подписчика
+private myObservable =new Observable((subscriber => {
+  setTimeout(() => {
+    subscriber.next('someValue')
+  }, 3000)
+}))
   constructor() { }
 
   initObservable(): void{
@@ -26,5 +34,16 @@ export class ObservableExampleService {
       console.log('error', error)
     }))
     sub.unsubscribe() // удаляет объект (data и err) из массива наблюдаемого объекта (асинхронная операция не вызвана)
+  }
+  getObservable(): Observable<string> {
+    // @ts-ignore
+    return this.myObservable;
+  }
+
+  getSubject(): Subject<string> {
+    return this.mySubject;
+  }
+  getBehaviorSubject(): BehaviorSubject <string>{
+    return this.myBehaviorSubject;
   }
 }
