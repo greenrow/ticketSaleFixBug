@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   }
 
+
   ngOnInit(){
     //Observable
     //first subscriber
@@ -31,12 +32,12 @@ export class AppComponent implements OnInit {
     const mySubject = this.testing.getSubject();
     //не будут получены данные
     //подписываемся
-    mySubject.subscribe((data) =>{
-      //console.log('first data subject', data)
-    });
-    mySubject.subscribe((data) => {
-      //console.log('second data subject', data)
-    });
+    // mySubject.subscribe((data) =>{
+    //   //console.log('first data subject', data)
+    // });
+    // mySubject.subscribe((data) => {
+    //   //console.log('second data subject', data)
+    // });
 
     //send subjectData
     mySubject.next('subject value');

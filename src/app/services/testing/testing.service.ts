@@ -10,6 +10,7 @@ private myBehaviorSubject = new BehaviorSubject<string>('some data of Behavior s
 private mySubject = new Subject<string>();
 // отправка каждому подписчику и вызывается элемент каждого подписчика
 private myObservable =new Observable((subscriber => {
+  subscriber.next('sync someValue')
   setTimeout(() => {
     subscriber.next('someValue')
   }, 3000)
@@ -45,5 +46,9 @@ private myObservable =new Observable((subscriber => {
   }
   getBehaviorSubject(): BehaviorSubject <string>{
     return this.myBehaviorSubject;
+  }
+
+  subscribe(param: (data: string) => void) {
+    return undefined;
   }
 }
