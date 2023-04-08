@@ -1,9 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {TicketService} from "../../../services/tickets/ticket.service";
-import {ITour} from "../../../models/tours";
+import {ITour, ITourTypeSelect} from "../../../models/tours";
 import { Router} from "@angular/router";
 import {TiсketsStorageService} from "../../../services/tiсkets-storage/tiсkets-storage.service";
 import {BlockStyleDirective} from "../../../directive/block-style.directive";
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -14,7 +15,8 @@ import {BlockStyleDirective} from "../../../directive/block-style.directive";
 export class TicketListComponent implements OnInit {
   tickets: ITour[];
   ticketsCopy: ITour[];
-  renderComplete = false; //
+  renderComplete = false;
+
 
   @ViewChild('tourWrap', {read: BlockStyleDirective}) blockDirective: BlockStyleDirective;
   @ViewChild('tourWrap') tourWrap: ElementRef;
@@ -22,7 +24,8 @@ export class TicketListComponent implements OnInit {
 
   constructor(private ticketService: TicketService,
               private router: Router,
-              private ticketStorage: TiсketsStorageService) { }
+              private ticketStorage: TiсketsStorageService,
+              private tourUnsubscriber: Subscription) { }
 
   //Подписаться на изменения, которые произойдут при запросе на сервер, параметром передается асинхронная операция (data)
   ngOnInit(): void {
@@ -34,6 +37,46 @@ export class TicketListComponent implements OnInit {
 
       }
     )
+    //сформировать подписку на ticketSubject
+    //1 вариант
+    this.tourUnsubscriber = this.ticketService.ticketType$.subscribe((data: ITourTypeSelect) => {
+      console.log('data', data)
+    //2 вариант
+    //this.tourUnsubscriber = this.ticketService.getTicketTypeObservable().subscribe((data:ITourTypeSelect) => {  console.log('data', data)  });
+    // в методе подписки на изменение типа тура добавлена логика обработки данных
+      let ticketType: string;
+      switch (data.value) {
+        case "single":
+          this.tickets = this.ticketsCopy.filter((el) => el.type === "single");
+          break;
+        case "multi":
+          this.tickets = this.ticketsCopy.filter((el) => el.type === "multi");
+          break;
+        case "all":
+          this.tickets = [...this.ticketsCopy];
+          break;
+
+      }
+      if (data.date) {
+        const dateWithoutTime = new Date(data.date).toISOString().split('T');
+        const dateValue = dateWithoutTime[0]
+        console.log('dateValue',dateValue)
+        this.tickets = this.ticketsCopy.filter((el) => el.date === dateValue);
+      }
+
+      //this.tickets добавлен метод директивы
+      setTimeout(() => {
+
+        this.blockDirective.updateItems();
+
+        this.blockDirective.initStyle(0);  // сбрасываем индекс на 0 элемент
+      });
+    });
+  }
+
+  //выполняется отписка
+  ngOnDestroy() {
+    this.tourUnsubscriber.unsubscribe();
   }
 
   ngAfterViewInit(){
