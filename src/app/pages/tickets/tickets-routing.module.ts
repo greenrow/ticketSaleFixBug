@@ -14,6 +14,10 @@ const routes: Routes = [
       {
         path: 'ticket/:id', //путь и параметр
         loadChildren: () => import('../ticket-info/ticket-info.module').then(m => m.TicketInfoModule)
+      },
+      {
+        path: 'setting', //настройки
+        loadChildren: () => import('../setting/setting.module').then(m => m.SettingModule)
       }
     ]
 
