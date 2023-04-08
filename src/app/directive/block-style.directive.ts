@@ -85,5 +85,9 @@ export class BlockStyleDirective implements OnInit, AfterViewInit, OnChanges{
       (this.items[index] as HTMLElement).setAttribute('style', 'border: 2px solid darkred')
     }
   }
+  //перезаписывает items
+  updateItems(): void {
+    this.items = this.el.nativeElement.querySelectorAll(this.selector);
+  }
 
 }
