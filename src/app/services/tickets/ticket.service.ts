@@ -22,9 +22,9 @@ export class TicketService {
   readonly ticketType$ = this.ticketSubject.asObservable();
 
   // 2 вариант доступа к Observable
-  // getTicketTypeObservable(): Observable<ITourTypeSelect> {
-  //   return this.ticketSubject.asObservable();
-  // }
+  getTicketTypeObservable(): Observable<ITourTypeSelect> {
+    return this.ticketSubject.asObservable();
+  }
   //
   // updateTour(type:ITourTypeSelect): void {
   //   this.ticketSubject.next(type);
