@@ -16,7 +16,7 @@ export class TicketListComponent implements OnInit {
   tickets: ITour[];
   ticketsCopy: ITour[];
   renderComplete = false;
-
+  tourUnsubscriber: Subscription;
 
   @ViewChild('tourWrap', {read: BlockStyleDirective}) blockDirective: BlockStyleDirective;
   @ViewChild('tourWrap') tourWrap: ElementRef;
@@ -24,8 +24,9 @@ export class TicketListComponent implements OnInit {
 
   constructor(private ticketService: TicketService,
               private router: Router,
-              private ticketStorage: TiсketsStorageService,
-              private tourUnsubscriber: Subscription) { }
+              private ticketStorage: TiсketsStorageService) {}
+
+
 
   //Подписаться на изменения, которые произойдут при запросе на сервер, параметром передается асинхронная операция (data)
   ngOnInit(): void {
