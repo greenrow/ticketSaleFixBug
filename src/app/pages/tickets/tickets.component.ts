@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IMenuType} from "../../models/menuType";
 import {Subscription} from "rxjs";
 import {ITourTypeSelect} from "../../models/tours";
+import {TicketService} from "../../services/tickets/ticket.service";
 
 @Component({
   selector: 'app-tickets',
@@ -10,10 +11,9 @@ import {ITourTypeSelect} from "../../models/tours";
 })
 export class TicketsComponent implements OnInit {
   selectedType: IMenuType;
-  private ticketService: any;
   private tourUnsubscriber: Subscription;
 
-  constructor() { }
+  constructor(private ticketService: TicketService) { }
 
   ngOnInit(): void {
     //сформировать подписку на ticketSubject
